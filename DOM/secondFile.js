@@ -58,24 +58,69 @@
 // //PreviousElementSibling
 // console.log(itemList.previousElementSibling)
 
-Create Element
-Create a Div
-var newDiv=document.createElement('div');
-//Add class
-newDiv.className='Hello';
-//Add id
-newDiv.id='Hello1';
-//Add attribute
-newDiv.setAttribute('title' , 'Hello Div');
+// create element
+// var newDiv=document.createElement('li');
+// newDiv.className='list-group-item';
 
-//Create a text Node
-var newDivText=document.createTextNode('Hello');
-//Add Text to Div
-newDiv.appendChild(newDivText);
-var container=document.querySelector('header .container');
-console.log(container)
-// var h1=document.querySelector('header h1');
-// newDiv.style.fontSize='30px';
-// container.insertBefore(newDiv,h1);
-parentNode=document.getElementById('items');
-parentNode.innerhtml = '<li>Hello World</li>' + parentNode.innerhtml
+
+// var menu=document.getElementById("main").getElementsByTagName('ul')[0];
+// menu.appendChild(newDiv);
+// newDiv.innerHTML='Hello World';
+// menu.insertBefore(newDiv, menu.getElementsByTagName("li")[0])
+
+var form=document.getElementById("addForm");
+var itemList = document.getElementById("items");
+
+//Form submit event
+form.addEventListener('submit', addItem)
+// Delete Event
+itemList.addEventListener('click', rempveItem);
+
+
+//Add item
+function addItem(e){
+    e.preventDefault();
+   
+
+var newItem = document.getElementById('item').value;
+// create new li element
+var li=document.createElement('li');
+//Add Class
+li.className='list-group-item';
+//Add text node with input value
+li.appendChild(document.createTextNode(newItem));
+
+//create del button element
+var deleteBtn=document.createElement('button');
+deleteBtn.className="btn btn-danger btn-sm float-right delete";
+//append text node
+deleteBtn.appendChild(document.createTextNode('X'));
+//append btn to li
+li.appendChild(deleteBtn);
+//apned li to list
+itemList.appendChild(li);
+//create del button element
+var deleteBtn=document.createElement('button');
+deleteBtn.className="btn btn-primary btn-sm float-right edit";
+//append text node
+deleteBtn.appendChild(document.createTextNode('EDIT'));
+//append btn to li
+li.appendChild(deleteBtn);
+//apned li to list
+itemList.appendChild(li);
+
+}
+
+//Remove item
+function rempveItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm("Are You Sure?")){
+            var li = e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
+}
+
+
+
+
